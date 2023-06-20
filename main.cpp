@@ -84,7 +84,7 @@ public:
     for (int x = 0; x < width - 1; x++) {
       for (int z = 0; z < depth - 1; z++) {
         glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
-                     (x + z) % 2 == 0 ? YELLOW : WHITE);  //Even:White Odd:Red
+                     (x + z) % 2 == 0 ? YELLOW : WHITE);  //Even:White Odd:Yellow
         glVertex3d(x, 0, z);  //7 7
         glVertex3d(x+1, 0, z); //8 7
         glVertex3d(x+1, 0, z+1);//8 8
