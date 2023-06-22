@@ -7,7 +7,7 @@ void display() {
 
   // Draw a white torus of outer radius 3, inner radius 0.5 with 15 stacks
   // and 30 slices.
-  glColor3f(1.0, 1.0, 1.0);
+  glColor3f(0.0, 0.0, 0.0);
   glutWireTorus(0.5, 3, 15, 30);
 
   // Draw a red x-axis, a green y-axis, and a blue z-axis.  Each of the
@@ -27,7 +27,7 @@ void init() {
 
   // Set the current clear color to black and the current drawing color to
   // white.
-  glClearColor(0.0, 0.0, 0.0, 1.0);
+  glClearColor(1.0, 1.0, 1.0, 1.0);
   glColor3f(1.0, 1.0, 1.0);
 
   // Set the camera lens to have a 60 degree (vertical) field of view, an
