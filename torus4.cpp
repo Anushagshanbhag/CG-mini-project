@@ -41,7 +41,7 @@ void init() {
   // <0, 1, 0> pointing upward.
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-  gluLookAt(4, 6, 5, 0, 0, 0, 0, 1, 0);
+  gluLookAt(6, 6, 4, 1, 1, 0, 1, 1, 0);
 }
 
 // Initializes GLUT, the display mode, and main window; registers callbacks;
