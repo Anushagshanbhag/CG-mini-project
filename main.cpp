@@ -15,9 +15,10 @@ float torusSpeed = 0.1f;
 float torusDirection = 1.0f;
 
 float cubeSize = 2.0f;
-float cubeX = 0.0f;
-float cubeY = cubeSize / 2.0f;
-float cubeZ = 0.0f;
+float cubeX = 2.0f;
+// float cubeY = cubeSize / 2.0f;
+float cubeY = 6.0f;
+float cubeZ = 4.0f;
 float cubeSpeed = 0.1f;
 float angle = 10;
 
@@ -97,6 +98,31 @@ void drawCube()
     glPopMatrix();
 }
 
+void drawCone(GLdouble r, GLdouble h, int n) {
+
+    GLdouble fi;
+    double dphi = 2 * M_PI / n;
+
+    glBegin(GL_LINE_LOOP);
+    for (fi = 0; fi < 2 * M_PI; fi += dphi) {
+        glVertex3f(0, 0, h);
+        glVertex3f(r * cos(fi), r * sin(fi), 0);
+        glVertex3f(r * cos(fi + dphi), r * sin(fi + dphi), 0);
+    }
+    glEnd();
+}
+
+// void rotate_around_line(GLdouble x0, GLdouble y0, GLdouble z0, GLdouble u1, GLdouble u2, GLdouble u3, GLdouble kut)
+// {
+//     double vek[3] = { u1 - x0, u2 - y0, u3 - z0 };
+
+
+//     glTranslatef(x0, y0, z0);
+//     glRotatef(-kut, vek[0], vek[1], vek[2]);
+//     glTranslatef(-x0, -y0, -z0);
+// }
+
+
 void display()
 {
     GLfloat mat_ambient[] = { 0.0f,0.0f,0.0f,0.0f };
@@ -115,7 +141,7 @@ void display()
     glLightfv(GL_LIGHT1, GL_POSITION, spotlightPosition);
     glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spotlightDirection);
     glPushMatrix();
-    
+
     drawCheckerboard();
 
     glPopMatrix();
@@ -128,6 +154,8 @@ void display()
         drawCube();
     else if (flag == 3)
         drawWireSphere();
+    // else if (flag == 4)
+    //     drawCone(5.0,10.0,2.0);
 
     glutSwapBuffers();
 }
@@ -245,6 +273,8 @@ void menu(int option)
         break;
     case 4:flag = 3;  // Draw Wire Sphere
         break;
+        // case 5:flag = 4;  // Draw Wire Sphere
+        // break;
     }
 }
 
@@ -276,6 +306,7 @@ int main(int argc, char** argv)
     glutAddMenuEntry("Draw Sphere", 2);
     glutAddMenuEntry("Draw Cube", 3);
     glutAddMenuEntry("Draw Wire Sphere", 4);
+    // glutAddMenuEntry("Draw rotating cone", 5);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 
     glutTimerFunc(0, update, 0);
