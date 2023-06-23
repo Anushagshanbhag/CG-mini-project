@@ -4,6 +4,7 @@
 #include<windows.h>
 
 int rFlag = 0;
+GLfloat PEACH[] = { 1.0, 1.0, 0.711 , 0.5 };
 GLfloat WHITE[] = { 1, 1, 1 };
 GLfloat BLACK[] = { 0, 0, 0 };
 int flag = 4;
@@ -42,6 +43,7 @@ float spotlightColor[] = { 1.0f, 0.0f, 0.0f, 1.0f };
 
 void drawCheckerboard()
 {
+    glColor3f(1.0, 1.0, 0.0);
     glBegin(GL_QUADS);
     for (float x = -boardSize / 2.0f; x < boardSize / 2.0f; x += 1.0f)
     {
@@ -52,9 +54,10 @@ void drawCheckerboard()
             glVertex3f(x + 1.0f, 0.0f, z + 1.0f);
             glVertex3f(x, 0.0f, z + 1.0f);
             glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
-                (int)(x + z) % 2 == 0 ? BLACK : WHITE);
+                (int)(x + z) % 2 == 0 ? BLACK : PEACH);
         }
     }
+    
     glEnd();
 }
 
@@ -66,6 +69,7 @@ void drawSphere()
     // void glutSolidSphere(GLdouble radius,
     //                  GLint slices, GLint stacks);
     glutSolidSphere(sphereRadius, 50, 50);
+    
     glPopMatrix();
 }
 
@@ -85,7 +89,16 @@ void drawTorus()
     glPushMatrix();
     glTranslatef(0.0f, torusY, 0.0f);
     glColor3f(0.0f, 0.0f, 1.0f);
-    glutSolidTorus(0.2f, torusRadius, 20, 20);
+    glutSolidTorus(0.6f, torusRadius, 20, 25);
+    glPopMatrix();
+}
+
+void drawWireTorus()
+{
+    glPushMatrix();
+    glTranslatef(0.0f, torusY, 0.0f);
+    glColor3f(0.0f, 0.0f, 1.0f);
+    glutWireTorus(0.6f, torusRadius, 20, 25);
     glPopMatrix();
 }
 
@@ -93,7 +106,7 @@ void drawCube()
 {
     glPushMatrix();
     glTranslatef(cubeX, cubeY, cubeZ);
-    glColor3f(0.0f, 0.0f, 0.0f);
+    glColor3f(1.0f, 0.750f, 0.0f);
     glutSolidCube(cubeSize);
     glPopMatrix();
 }
@@ -142,6 +155,8 @@ void display()
     glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spotlightDirection);
     glPushMatrix();
 
+
+    glColor3f(1.0, 1.0, 0.0);
     drawCheckerboard();
 
     glPopMatrix();
@@ -154,8 +169,8 @@ void display()
         drawCube();
     else if (flag == 3)
         drawWireSphere();
-    // else if (flag == 4)
-    //     drawCone(5.0,10.0,2.0);
+    else if (flag == 4)
+        drawWireTorus();
 
     glutSwapBuffers();
 }
@@ -273,8 +288,8 @@ void menu(int option)
         break;
     case 4:flag = 3;  // Draw Wire Sphere
         break;
-        // case 5:flag = 4;  // Draw Wire Sphere
-        // break;
+    case 5:flag = 4;  // Draw Wire Torus
+        break;
     }
 }
 
@@ -306,7 +321,7 @@ int main(int argc, char** argv)
     glutAddMenuEntry("Draw Sphere", 2);
     glutAddMenuEntry("Draw Cube", 3);
     glutAddMenuEntry("Draw Wire Sphere", 4);
-    // glutAddMenuEntry("Draw rotating cone", 5);
+    glutAddMenuEntry("Draw Wire Torus", 5);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 
     glutTimerFunc(0, update, 0);
