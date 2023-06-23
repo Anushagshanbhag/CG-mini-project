@@ -68,6 +68,17 @@ void drawSphere()
     glPopMatrix();
 }
 
+void drawWireSphere()
+{
+    glPushMatrix();
+    glTranslatef(sphereX, sphereY, sphereZ);
+    glColor3f(1.0, 0.0, 0.0);
+    // void glutSolidSphere(GLdouble radius,
+    //                  GLint slices, GLint stacks);
+    glutWireSphere(sphereRadius, 50, 50);
+    glPopMatrix();
+}
+
 void drawTorus()
 {
     glPushMatrix();
@@ -115,7 +126,9 @@ void display()
         drawTorus();
     else if (flag == 2)
         drawCube();
-    
+    else if (flag == 3)
+        drawWireSphere();
+
     glutSwapBuffers();
 }
 
@@ -228,7 +241,9 @@ void menu(int option)
         break;
     case 2:flag = 0; // Draw Sphere
         break;
-    case 3:flag = 2;
+    case 3:flag = 2;  // Draw Cube
+        break;
+    case 4:flag = 3;  // Draw Wire Sphere
         break;
     }
 }
@@ -260,6 +275,7 @@ int main(int argc, char** argv)
     glutAddMenuEntry("Draw Torus", 1);
     glutAddMenuEntry("Draw Sphere", 2);
     glutAddMenuEntry("Draw Cube", 3);
+    glutAddMenuEntry("Draw Wire Sphere", 4);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 
     glutTimerFunc(0, update, 0);
