@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <GL/glut.h>
 #include <math.h>
+#include<string>
 #include<windows.h>
 
 int rFlag = 0;
@@ -57,7 +58,7 @@ void drawCheckerboard()
                 (int)(x + z) % 2 == 0 ? BLACK : PEACH);
         }
     }
-    
+
     glEnd();
 }
 
@@ -69,7 +70,7 @@ void drawSphere()
     // void glutSolidSphere(GLdouble radius,
     //                  GLint slices, GLint stacks);
     glutSolidSphere(sphereRadius, 50, 50);
-    
+
     glPopMatrix();
 }
 
@@ -293,11 +294,50 @@ void menu(int option)
     }
 }
 
+std::string projectName = "Bouncing objects";
+std::string instructions = "Instructions";
+std::string rules = "Keyboard Interactions: Press X,Y,Z to move along +ve x y z axis and x,y,z to move along -ve x y z axis.";
+std::string mousee = "Mouse Interactions: Left Click and middle Buttton t";
+std::string menuu = "Menu Interactions: Right click to start.";
+std::string by = "Project By Anusha Shanbhag and Karthik Prabhu";
+
+void renderText(float x, float y, void* font, const std::string& text) {
+    glRasterPos2f(x, y);
+    for (const char& c : text) {
+        glutBitmapCharacter(font, c);
+    }
+}
+
+void display2(void) {
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // Render project name
+    glColor3f(1.0f, 0.0f, 0.0f); // Set text color to white
+    glLoadIdentity();
+    gluOrtho2D(0, 1, 0, 1); // orthographic projection for text 0 0 bt lft 1 1 tp rt
+    renderText(0.05f, 0.95f, GLUT_BITMAP_HELVETICA_18, projectName);//font style sixe
+    renderText(0.05f, 0.8f, GLUT_BITMAP_HELVETICA_18, instructions);
+    renderText(0.05f, 0.5f, GLUT_BITMAP_HELVETICA_18, mousee);
+
+    renderText(0.05f, 0.6f, GLUT_BITMAP_HELVETICA_18, menuu);
+    renderText(0.05f, 0.7f, GLUT_BITMAP_HELVETICA_18, rules);
+    renderText(0.1f, 0.4f, GLUT_BITMAP_HELVETICA_18, by);
+    glutSwapBuffers();
+}
+
 int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    // SECOND WINDOW
+    glutInitWindowSize(700, 500);
+    glutInitWindowPosition(0, 100);
+    glutCreateWindow("Instruction Window");
+    glutDisplayFunc(display2);
+
+    // FIRST WINDOW
     glutInitWindowSize(800, 700);
+    glutInitWindowPosition(650, 100);
     glutCreateWindow("Solid Sphere on Checkerboard");
     glClearColor(1.0, .50, 0.0, 0.0);
     glEnable(GL_DEPTH_TEST);
@@ -329,6 +369,11 @@ int main(int argc, char** argv)
     //glutTimerFunc(0, updateC, 0);
 
     glutMainLoop();
+
+
+
+
+
 
     return 0;
 }
