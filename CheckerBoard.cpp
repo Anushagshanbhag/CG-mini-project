@@ -7,8 +7,8 @@
 #include<windows.h>
 
 // Colors
-GLfloat WHITE[] = {1, 1, 1};
-GLfloat YELLOW[] = {1, 1, 0};
+GLfloat WHITE[] = { 1, 1, 1 };
+GLfloat YELLOW[] = { 1, 1, 0 };
 
 
 // A camera.  It moves horizontally in a circle centered at the origin of
@@ -19,14 +19,14 @@ class Camera {
   double dTheta;     // increment in theta for swinging the camera around
   double dy;         // increment in y for moving the camera up/down
 public:
-  Camera(): theta(0), y(3), dTheta(0.04), dy(0.4) {}
-  double getX() {return 10 * cos(theta);}
-  double getY() {return y;}
-  double getZ() {return 10 * sin(theta);}
-  void moveRight() {theta += dTheta;}
-  void moveLeft() {theta -= dTheta;}
-  void moveUp() {y += dy;}
-  void moveDown() {if (y > dy) y -= dy;}
+  Camera() : theta(0), y(3), dTheta(0.04), dy(0.4) {}
+  double getX() { return 10 * cos(theta); }
+  double getY() { return y; }
+  double getZ() { return 10 * sin(theta); }
+  void moveRight() { theta += dTheta; }
+  void moveLeft() { theta -= dTheta; }
+  void moveUp() { y += dy; }
+  void moveDown() { if (y > dy) y -= dy; }
 };
 
 // A ball.  A ball has a radius, a color, and bounces up and down between
@@ -42,15 +42,16 @@ class Ball {
   double z;
   int direction;
 public:
-  Ball(double r, GLfloat* c, double h, double x, double z):
-      radius(r), color(c), maximumHeight(h), direction(-1),
-      y(h), x(x), z(z) {
+  Ball(double r, GLfloat* c, double h, double x, double z) :
+    radius(r), color(c), maximumHeight(h), direction(-1),
+    y(h), x(x), z(z) {
   }
   void update() {
     y += direction * 0.05;   //0.05 speed of bouncing
     if (y > maximumHeight) {
       y = maximumHeight; direction = -1;
-    } else if (y < radius) {
+    }
+    else if (y < radius) {
       y = radius; direction = 1;
     }
     glPushMatrix();
@@ -71,24 +72,24 @@ class Checkerboard {
   int width;
   int depth;
 public:
-  Checkerboard(int width, int depth): width(width), depth(depth) {}
-  double centerx() {return width / 2;}
-  double centerz() {return depth / 2;}
+  Checkerboard(int width, int depth) : width(width), depth(depth) {}
+  double centerx() { return width / 2; }
+  double centerz() { return depth / 2; }
   void create() {
     displayListId = glGenLists(1);
     glNewList(displayListId, GL_COMPILE);
-    GLfloat lightPosition[] = {4, 3, 7, 1};
+    GLfloat lightPosition[] = { 4, 3, 7, 1 };
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
     glBegin(GL_QUADS);
     glNormal3d(0, 1, 0);
     for (int x = 0; x < width - 1; x++) {
       for (int z = 0; z < depth - 1; z++) {
         glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE,
-                     (x + z) % 2 == 0 ? YELLOW : WHITE);  //Even:White Odd:Yellow
+          (x + z) % 2 == 0 ? YELLOW : WHITE);  //Even:White Odd:Yellow
         glVertex3d(x, 0, z);  //7 7
-        glVertex3d(x+1, 0, z); //8 7
-        glVertex3d(x+1, 0, z+1);//8 8
-        glVertex3d(x, 0, z+1);//7 8
+        glVertex3d(x + 1, 0, z); //8 7
+        glVertex3d(x + 1, 0, z + 1);//8 8
+        glVertex3d(x, 0, z + 1);//7 8
       }
     }
     glEnd();
@@ -123,8 +124,8 @@ void display() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glLoadIdentity();
   gluLookAt(camera.getX(), camera.getY(), camera.getZ(),
-            checkerboard.centerx(), 0.0, checkerboard.centerz(),
-            0.0, 1.0, 0.0);
+    checkerboard.centerx(), 0.0, checkerboard.centerz(),
+    0.0, 1.0, 0.0);
   checkerboard.draw();
   glFlush();
   glutSwapBuffers();
@@ -144,10 +145,10 @@ void reshape(GLint w, GLint h) {
 // display.
 void special(int key, int, int) {
   switch (key) {
-    case GLUT_KEY_LEFT: camera.moveLeft(); break;
-    case GLUT_KEY_RIGHT: camera.moveRight(); break;
-    case GLUT_KEY_UP: camera.moveUp(); break;
-    case GLUT_KEY_DOWN: camera.moveDown(); break;
+  case GLUT_KEY_LEFT: camera.moveLeft(); break;
+  case GLUT_KEY_RIGHT: camera.moveRight(); break;
+  case GLUT_KEY_UP: camera.moveUp(); break;
+  case GLUT_KEY_DOWN: camera.moveDown(); break;
   }
   glutPostRedisplay();
 }

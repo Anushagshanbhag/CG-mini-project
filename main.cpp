@@ -21,8 +21,6 @@ float cubeZ = 0.0f;
 float cubeSpeed = 0.1f;
 float angle = 10;
 
-
-
 // Checkerboard properties
 float boardSize = 15.0f;
 float lookAtX = 0.0, lookAtY = 0.0, lookAtZ = 0.0;
@@ -64,6 +62,8 @@ void drawSphere()
     glPushMatrix();
     glTranslatef(sphereX, sphereY, sphereZ);
     glColor3f(1.0, 0.0, 0.0);
+    // void glutSolidSphere(GLdouble radius,
+    //                  GLint slices, GLint stacks);
     glutSolidSphere(sphereRadius, 50, 50);
     glPopMatrix();
 }
@@ -79,14 +79,11 @@ void drawTorus()
 
 void drawCube()
 {
-
     glPushMatrix();
     glTranslatef(cubeX, cubeY, cubeZ);
     glColor3f(0.0f, 0.0f, 0.0f);
     glutSolidCube(cubeSize);
     glPopMatrix();
-
-
 }
 
 void display()
@@ -102,20 +99,23 @@ void display()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-
     gluLookAt(0.0f, 10.0f, 20.0f, lookAtX, lookAtY, lookAtZ, 0.0f, 1.0f, 0.0f);
 
     glLightfv(GL_LIGHT1, GL_POSITION, spotlightPosition);
     glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spotlightDirection);
     glPushMatrix();
+    
     drawCheckerboard();
+
     glPopMatrix();
+
     if (flag == 0)
         drawSphere();
     else if (flag == 1)
         drawTorus();
     else if (flag == 2)
         drawCube();
+    
     glutSwapBuffers();
 }
 
@@ -136,6 +136,7 @@ void specialKeyboardCallback(int key, int x, int y) {
         break;
     }
 }
+
 void reshape(int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -176,6 +177,8 @@ void keyboard(unsigned char key, int x, int y)
     glutPostRedisplay();
 }
 
+
+// ROLLING feature
 void update(int value)
 {
     // Roll the sphere
@@ -236,7 +239,7 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(800, 700);
     glutCreateWindow("Solid Sphere on Checkerboard");
-    glClearColor(1.0, 1.0, 0.0, 0.0);
+    glClearColor(1.0, .50, 0.0, 0.0);
     glEnable(GL_DEPTH_TEST);
 
     glMatrixMode(GL_MODELVIEW);
