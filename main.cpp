@@ -295,7 +295,7 @@ void menu(int option)
 }
 
 std::string projectName = "Bouncing objects";
-std::string instructions = "Instructions";
+// std::string instructions = "Instructions";
 std::string rules = "Keyboard Interactions: Press the arrow keys to move the board along +ve axis and -ve x-axis.";
 std::string mousee = "Mouse Interactions: A,S,D,W keys to bounce the sphere on the board";
 std::string mou = "The sphere can only bounce within the board limit";
@@ -317,11 +317,11 @@ void display2(void) {
     glLoadIdentity();
     gluOrtho2D(0, 1, 0, 1); // orthographic projection for text 0 0 bt lft 1 1 tp rt
     renderText(0.05f, 0.95f, GLUT_BITMAP_HELVETICA_18, projectName);//font style sixe
-    renderText(0.05f, 0.8f, GLUT_BITMAP_HELVETICA_18, instructions);
+    // renderText(0.05f, 0.8f, GLUT_BITMAP_HELVETICA_18, instructions);
     renderText(0.05f, 0.5f, GLUT_BITMAP_HELVETICA_18, mousee);
-renderText(0.05f, 0.5f, GLUT_BITMAP_HELVETICA_18, mou);
-    renderText(0.05f, 0.6f, GLUT_BITMAP_HELVETICA_18, menuu);
-    renderText(0.05f, 0.7f, GLUT_BITMAP_HELVETICA_18, rules);
+    renderText(0.05f, 0.6f, GLUT_BITMAP_HELVETICA_18, mou);
+    renderText(0.05f, 0.7f, GLUT_BITMAP_HELVETICA_18, menuu);
+    renderText(0.05f, 0.8f, GLUT_BITMAP_HELVETICA_18, rules);
     renderText(0.1f, 0.4f, GLUT_BITMAP_HELVETICA_18, by);
     glutSwapBuffers();
 }
