@@ -296,8 +296,9 @@ void menu(int option)
 
 std::string projectName = "Bouncing objects";
 std::string instructions = "Instructions";
-std::string rules = "Keyboard Interactions: Press X,Y,Z to move along +ve x y z axis and x,y,z to move along -ve x y z axis.";
-std::string mousee = "Mouse Interactions: Left Click and middle Buttton t";
+std::string rules = "Keyboard Interactions: Press the arrow keys to move the board along +ve axis and -ve x-axis.";
+std::string mousee = "Mouse Interactions: A,S,D,W keys to bounce the sphere on the board";
+std::string mou = "The sphere can only bounce within the board limit";
 std::string menuu = "Menu Interactions: Right click to start.";
 std::string by = "Project By Anusha Shanbhag and Karthik Prabhu";
 
@@ -318,7 +319,7 @@ void display2(void) {
     renderText(0.05f, 0.95f, GLUT_BITMAP_HELVETICA_18, projectName);//font style sixe
     renderText(0.05f, 0.8f, GLUT_BITMAP_HELVETICA_18, instructions);
     renderText(0.05f, 0.5f, GLUT_BITMAP_HELVETICA_18, mousee);
-
+renderText(0.05f, 0.5f, GLUT_BITMAP_HELVETICA_18, mou);
     renderText(0.05f, 0.6f, GLUT_BITMAP_HELVETICA_18, menuu);
     renderText(0.05f, 0.7f, GLUT_BITMAP_HELVETICA_18, rules);
     renderText(0.1f, 0.4f, GLUT_BITMAP_HELVETICA_18, by);
@@ -357,8 +358,8 @@ int main(int argc, char** argv)
     glutSpecialFunc(specialKeyboardCallback);
 
     glutCreateMenu(menu);
-    glutAddMenuEntry("Draw Torus", 1);
-    glutAddMenuEntry("Draw Sphere", 2);
+    glutAddMenuEntry("Draw Solid Torus", 1);
+    glutAddMenuEntry("Draw Solid Sphere", 2);
     glutAddMenuEntry("Draw Cube", 3);
     glutAddMenuEntry("Draw Wire Sphere", 4);
     glutAddMenuEntry("Draw Wire Torus", 5);
@@ -369,11 +370,6 @@ int main(int argc, char** argv)
     //glutTimerFunc(0, updateC, 0);
 
     glutMainLoop();
-
-
-
-
-
 
     return 0;
 }
