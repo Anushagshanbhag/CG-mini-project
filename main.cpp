@@ -3,6 +3,7 @@
 #include <math.h>
 #include<string>
 #include<windows.h>
+// using namespace std;
 
 int rFlag = 0;
 GLfloat PEACH[] = { 1.0, 1.0, 0.711 , 0.5 };
@@ -126,22 +127,13 @@ void drawCone(GLdouble r, GLdouble h, int n) {
     glEnd();
 }
 
-// void rotate_around_line(GLdouble x0, GLdouble y0, GLdouble z0, GLdouble u1, GLdouble u2, GLdouble u3, GLdouble kut)
-// {
-//     double vek[3] = { u1 - x0, u2 - y0, u3 - z0 };
-
-
-//     glTranslatef(x0, y0, z0);
-//     glRotatef(-kut, vek[0], vek[1], vek[2]);
-//     glTranslatef(-x0, -y0, -z0);
-// }
-
 
 void display()
 {
     GLfloat mat_ambient[] = { 0.0f,0.0f,0.0f,0.0f };
     GLfloat mat_diffuse[] = { 0.3f,0.3f,0.0f,0.0f };
     GLfloat mat_specular[] = { 0.0f,0.0f,0.0f,0.0f };
+    
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
